@@ -5,8 +5,8 @@
     "outDir": "./dist",
 
     /* Module system */
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "commonjs",
+    "moduleResolution": "node",
     "target": "ES2022",
     "lib": ["ES2022"],
     "types": ["node"],
@@ -23,9 +23,7 @@
 
     /* Performance & misc */
     "skipLibCheck": true,
-    "isolatedModules": true,
-    "verbatimModuleSyntax": true,
-    "moduleDetection": "force"
+    "isolatedModules": false
   },
   "include": ["src", "prisma"]
 }
