@@ -5,11 +5,15 @@
     "outDir": "./dist",
 
     /* Module system */
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "target": "ES2022",
     "lib": ["ES2022"],
     "types": ["node"],
+
+    /* Interop & compatibility */
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
 
     /* Emit settings */
     "sourceMap": true,
@@ -23,7 +27,8 @@
 
     /* Performance & misc */
     "skipLibCheck": true,
-    "isolatedModules": false
+    "isolatedModules": false,
+    "moduleDetection": "force"
   },
   "include": ["src", "prisma"]
 }
