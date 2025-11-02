@@ -1,16 +1,14 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const dotenv_1 = require("dotenv");
-dotenv_1.default.config();
-const app_js_1 = require("./app.js");
-const client_1 = require("@prisma/client");
-const prisma = new client_1.PrismaClient();
+import dotenv from "dotenv";
+dotenv.config();
+import app from "./app.js";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 const PORT = process.env.PORT || 4000;
 async function startServer() {
     try {
         await prisma.$connect();
         console.log("✅ Connected to PostgreSQL");
-        app_js_1.default.listen(PORT, () => {
+        app.listen(PORT, () => {
             console.log(`🚀 Server running at http://localhost:${PORT}`);
         });
     }

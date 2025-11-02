@@ -1,12 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
-const cors_1 = require("cors");
-const weatherRoutes_js_1 = require("./routes/weatherRoutes.js");
-const app = (0, express_1.default)();
-app.use((0, cors_1.default)());
-app.use(express_1.default.json());
+import express from "express";
+import cors from "cors";
+import weatherRoutes from "./routes/weatherRoutes.js";
+const app = express();
+app.use(cors());
+app.use(express.json());
 // ✅ Mount API routes
-app.use("/api/weather", weatherRoutes_js_1.default);
-exports.default = app;
+app.use("/api/weather", weatherRoutes);
+export default app;
 //# sourceMappingURL=app.js.map

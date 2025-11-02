@@ -1,5 +1,6 @@
 import express from "express";
 import axios from "axios";
+import { fetchWeather } from "../controllers/weatherController.js";
 
 const router = express.Router();
 

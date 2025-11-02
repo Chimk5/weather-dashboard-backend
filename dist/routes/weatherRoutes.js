@@ -1,19 +1,17 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
-const axios_1 = require("axios");
-const router = express_1.default.Router();
+import express from "express";
+import axios from "axios";
+const router = express.Router();
 // ✅ Current weather
 router.get("/current", async (req, res) => {
     try {
         const city = req.query.city;
         if (!city)
             return res.status(400).json({ error: "City is required" });
-        const geoResponse = await axios_1.default.get(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}`);
+        const geoResponse = await axios.get(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}`);
         if (!geoResponse.data.results?.length)
             return res.status(404).json({ error: "City not found" });
         const { latitude, longitude, name, country } = geoResponse.data.results[0];
-        const weatherResponse = await axios_1.default.get(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
+        const weatherResponse = await axios.get(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
         const current = weatherResponse.data.current_weather;
         const data = {
             location: { city: name, country },
@@ -38,11 +36,11 @@ router.get("/forecast", async (req, res) => {
         const city = req.query.city;
         if (!city)
             return res.status(400).json({ error: "City is required" });
-        const geoResponse = await axios_1.default.get(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}`);
+        const geoResponse = await axios.get(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}`);
         if (!geoResponse.data.results?.length)
             return res.status(404).json({ error: "City not found" });
         const { latitude, longitude, name, country } = geoResponse.data.results[0];
-        const forecastResponse = await axios_1.default.get(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min&timezone=auto`);
+        const forecastResponse = await axios.get(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min&timezone=auto`);
         const forecastData = {
             city: name,
             country,
@@ -61,7 +59,7 @@ router.get("/search", async (req, res) => {
         const query = req.query.q;
         if (!query)
             return res.status(400).json({ error: "Query is required" });
-        const geoResponse = await axios_1.default.get(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=5`);
+        const geoResponse = await axios.get(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=5`);
         if (!geoResponse.data.results?.length)
             return res.status(404).json({ error: "No cities found" });
         const cities = geoResponse.data.results.map((result) => ({
@@ -83,14 +81,14 @@ router.get("/history", async (req, res) => {
         const city = req.query.city;
         if (!city)
             return res.status(400).json({ error: "City is required" });
-        const geoResponse = await axios_1.default.get(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}`);
+        const geoResponse = await axios.get(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}`);
         if (!geoResponse.data.results?.length)
             return res.status(404).json({ error: "City not found" });
         const { latitude, longitude } = geoResponse.data.results[0];
         const endDate = new Date();
         const startDate = new Date();
         startDate.setDate(endDate.getDate() - 30);
-        const historyResponse = await axios_1.default.get(`https://archive-api.open-meteo.com/v1/archive?latitude=${latitude}&longitude=${longitude}&start_date=${startDate.toISOString().split('T')[0]}&end_date=${endDate.toISOString().split('T')[0]}&daily=temperature_2m_mean,precipitation_sum&timezone=auto`);
+        const historyResponse = await axios.get(`https://archive-api.open-meteo.com/v1/archive?latitude=${latitude}&longitude=${longitude}&start_date=${startDate.toISOString().split('T')[0]}&end_date=${endDate.toISOString().split('T')[0]}&daily=temperature_2m_mean,precipitation_sum&timezone=auto`);
         const historyData = historyResponse.data.daily.time.map((date, i) => ({
             date,
             temperature: historyResponse.data.daily.temperature_2m_mean[i],
@@ -109,11 +107,11 @@ router.get("/hourly", async (req, res) => {
         const city = req.query.city;
         if (!city)
             return res.status(400).json({ error: "City is required" });
-        const geoResponse = await axios_1.default.get(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}`);
+        const geoResponse = await axios.get(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}`);
         if (!geoResponse.data.results?.length)
             return res.status(404).json({ error: "City not found" });
         const { latitude, longitude, name, country } = geoResponse.data.results[0];
-        const hourlyResponse = await axios_1.default.get(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,weather_code,wind_speed_10m&timezone=auto&forecast_days=1`);
+        const hourlyResponse = await axios.get(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,weather_code,wind_speed_10m&timezone=auto&forecast_days=1`);
         const hourlyData = {
             city: name,
             country,
@@ -133,5 +131,5 @@ router.get("/hourly", async (req, res) => {
         res.status(500).json({ error: "Failed to fetch hourly forecast" });
     }
 });
-exports.default = router;
+export default router;
 //# sourceMappingURL=weatherRoutes.js.map

@@ -1,10 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const winston_1 = require("winston");
-const logger = winston_1.default.createLogger({
+import winston from "winston";
+const logger = winston.createLogger({
     level: "info",
-    format: winston_1.default.format.combine(winston_1.default.format.timestamp(), winston_1.default.format.printf(({ timestamp, level, message }) => `${timestamp} [${level.toUpperCase()}] ${message}`)),
-    transports: [new winston_1.default.transports.Console()],
+    format: winston.format.combine(winston.format.timestamp(), winston.format.printf(({ timestamp, level, message }) => `${timestamp} [${level.toUpperCase()}] ${message}`)),
+    transports: [new winston.transports.Console()],
 });
-exports.default = logger;
+export default logger;
 //# sourceMappingURL=logger.js.map
