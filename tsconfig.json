@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    /* Project structure */
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    /* Module system */
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "types": ["node"],
+
+    /* Emit settings */
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    /* Type safety */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    /* Performance & misc */
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force"
+  },
+  "include": ["src", "prisma"]
+}

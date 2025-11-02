@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model WeatherRequest {
+  id        Int      @id @default(autoincrement())
+  query     String
+  lat       Float?
+  lon       Float?
+  response  Json
+  createdAt DateTime @default(now())
+}
+model WeatherCache {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  response  Json
+  updatedAt DateTime @updatedAt
+}
+
